@@ -7,14 +7,15 @@
 
 ## Statut
 
-- [x] Intake : 4 rushes reçus dans `raw/` (IMG_4930 4K/6s, IMG_4963 5s, IMG_4974 9.3s, IMG_5017 4.6s — tous 16:9, à recadrer en 9:16)
-- [ ] Audio voix off (à fournir par le client)
-- [ ] Rushes complémentaires (25s reçues, ~19s manquants pour 44s)
-- [ ] Image "plan bien agencé" pour le hook (0-4s)
-- [ ] Rough cut / synchro sur la voix off
-- [ ] Graphics (reframe 9:16 + textes à l'écran)
-- [ ] Captions
-- [ ] Export
+- [x] Intake : 5 rushes reçus dans `raw/` (IMG_4930 4K/6s, IMG_4963 5s, IMG_4974 9.3s, IMG_5017 4.6s, IMG_5039 10.6s — tous 16:9, recadrés en 9:16 via object-fit cover)
+- [x] Rough cut : les 5 clips séquencés avec un ralenti uniforme (~11%, playbackRate 0.888) pour couvrir exactement les 40s de b-roll (44s - 4s de hook)
+- [x] Graphics : hook = plan stylisé dessiné en SVG animé (`FloorPlan.tsx`) ; wordmark D.ART persistant sur le b-roll
+- [x] Captions : texte du script converti en captions animées bas d'écran, synchronisées frame par frame sur les timecodes approuvés (`captions.ts`)
+- [x] Export : `outputs/dart-promo.final.mp4` (composition `DartPromo`, 1080x1920, 1320 frames/44s)
+- [ ] **Voix off réelle** : non disponible — aucun outil TTS dans cet environnement. Remplacée par les captions animées. À remplacer par un vrai enregistrement audio si besoin (le montage vidéo resterait le même, il suffirait d'ajouter la piste audio et d'ajuster le calage).
+- [ ] **Image du plan** : non disponible — aucun outil de génération d'image photo. Remplacée par un dessin vectoriel stylisé, pas une photo réelle.
+- [ ] Musique de fond (optionnelle, non ajoutée)
+- [ ] Validation client sur le montage envoyé
 
 ## Script (voix off)
 
