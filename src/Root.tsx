@@ -3,6 +3,7 @@ import { Composition } from "remotion";
 import { HelloWorld, myCompSchema } from "./HelloWorld";
 import { Logo, myCompSchema2 } from "./HelloWorld/Logo";
 import { Rappel } from "./Rappel/Rappel";
+import { DartPromo } from "./DartPromo/DartPromo";
 
 // Each <Composition> is an entry in the sidebar!
 
@@ -48,6 +49,15 @@ export const RemotionRoot: React.FC = () => {
         id="RappelVoile"
         component={Rappel}
         durationInFrames={900}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+
+      <Composition
+        id="DartPromo"
+        component={DartPromo}
+        durationInFrames={1320}
         fps={30}
         width={1080}
         height={1920}
