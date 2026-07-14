@@ -1,6 +1,6 @@
 import { AbsoluteFill, OffthreadVideo, Sequence, interpolate, staticFile, useCurrentFrame } from "remotion";
 import { CaptionLayer } from "./CaptionLayer";
-import { RoomScene } from "./RoomScene";
+import { HookPhoto } from "./HookPhoto";
 
 const HOOK_DURATION = 120;
 
@@ -59,7 +59,7 @@ const Hook: React.FC = () => {
   return (
     <AbsoluteFill style={{ background: "linear-gradient(160deg, #fdf6ec 0%, #f0e2c8 100%)", opacity: bgOpacity }}>
       <AbsoluteFill style={{ justifyContent: "center", alignItems: "center", paddingBottom: 260 }}>
-        <RoomScene />
+        <HookPhoto />
       </AbsoluteFill>
     </AbsoluteFill>
   );
