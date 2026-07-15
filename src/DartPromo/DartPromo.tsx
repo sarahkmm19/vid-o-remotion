@@ -1,8 +1,35 @@
 import { AbsoluteFill, OffthreadVideo, Sequence, interpolate, staticFile, useCurrentFrame } from "remotion";
 import { CaptionLayer } from "./CaptionLayer";
-import { FloorPlan } from "./FloorPlan";
 
 const HOOK_DURATION = 120;
+
+// Best 3 moments from the sofa reel, cut back to back for the hook.
+// startFrom/duration are in composition frames (30fps) into the 10s source.
+const HOOK_SEGMENTS = [
+  { startFrom: 0, durationInFrames: 40 }, // 0.0-1.33s: doorway reveal into the room
+  { startFrom: 165, durationInFrames: 40 }, // 5.5-6.83s: bouclé texture macro
+  { startFrom: 240, durationInFrames: 40 }, // 8.0-9.33s: pillow + throw detail
+];
+
+// The source has a small watermark baked into the bottom-right corner.
+// Scaling it up 15% anchored top-left pushes that corner out of frame.
+const WatermarkSafeVideo: React.FC<{ startFrom: number }> = ({ startFrom }) => (
+  <AbsoluteFill style={{ overflow: "hidden" }}>
+    <OffthreadVideo
+      src={staticFile("videos/dart-promo/hook-sofa.mp4")}
+      startFrom={startFrom}
+      muted
+      style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "115%",
+        height: "115%",
+        objectFit: "cover",
+      }}
+    />
+  </AbsoluteFill>
+);
 
 const clips = [
   { src: "IMG_4930.mp4", originalDuration: 6.065 },
@@ -51,16 +78,24 @@ const Wordmark: React.FC = () => (
 
 const Hook: React.FC = () => {
   const frame = useCurrentFrame();
-  const bgOpacity = interpolate(frame, [0, 20], [0, 1], {
+  const bgOpacity = interpolate(frame, [0, 15], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
+  let cursor = 0;
+
   return (
-    <AbsoluteFill style={{ backgroundColor: "#B49894", opacity: bgOpacity }}>
-      <AbsoluteFill style={{ justifyContent: "center", alignItems: "center", paddingBottom: 260 }}>
-        <FloorPlan />
-      </AbsoluteFill>
+    <AbsoluteFill style={{ backgroundColor: "#000", opacity: bgOpacity }}>
+      {HOOK_SEGMENTS.map((segment) => {
+        const from = cursor;
+        cursor += segment.durationInFrames;
+        return (
+          <Sequence key={segment.startFrom} from={from} durationInFrames={segment.durationInFrames} layout="none">
+            <WatermarkSafeVideo startFrom={segment.startFrom} />
+          </Sequence>
+        );
+      })}
     </AbsoluteFill>
   );
 };
