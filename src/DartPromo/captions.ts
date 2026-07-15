@@ -7,17 +7,17 @@ export type Caption = {
 
 // All timings in frames at 30fps, matching the approved script's second marks.
 export const captions: Caption[] = [
-  // [0-4s] HOOK
-  { from: 0, durationInFrames: 60, text: "Un espace mal agencé,\nce n'est pas juste une question d'esthétique —" },
-  { from: 60, durationInFrames: 60, text: "c'est un lieu où l'on se sent mal,\nchaque jour, sans savoir pourquoi." },
+  // [0-4s] HOOK — reformulated to a positive, valorizing tone
+  { from: 0, durationInFrames: 60, text: "Un espace bien pensé,\nça se ressent —" },
+  { from: 60, durationInFrames: 60, text: "dans votre humeur, votre énergie,\nvotre quotidien." },
 
   // [4-16s]
   { from: 120, durationInFrames: 60, text: "Depuis 2020 dans le secteur\nde la décoration," },
-  { from: 180, durationInFrames: 60, text: "une conviction reste la même :" },
-  { from: 240, durationInFrames: 60, text: "chaque projet a besoin de quelqu'un\nqui comprend les besoins réels," },
-  { from: 300, durationInFrames: 60, text: "qui reste réactif à chaque étape,\nqui s'adapte aux tendances," },
-  { from: 360, durationInFrames: 60, text: "et qui sait trouver la créativité\nqui correspond à chaque client." },
-  { from: 420, durationInFrames: 60, text: "Voilà ce que D.Art met\nau service de chaque projet." },
+  { from: 180, durationInFrames: 60, text: "une conviction nous anime :" },
+  { from: 240, durationInFrames: 60, text: "chaque projet mérite quelqu'un\nqui comprend vos besoins réels," },
+  { from: 300, durationInFrames: 60, text: "qui reste réactif à chaque étape,\net s'adapte aux nouvelles tendances," },
+  { from: 360, durationInFrames: 60, text: "avec la créativité\nqui vous ressemble vraiment." },
+  { from: 420, durationInFrames: 60, text: "Voilà ce que D.Art offre\nà chaque projet." },
 
   // [16-30s] LA DIFFÉRENCE D.ART
   { from: 480, durationInFrames: 60, text: "LA DIFFÉRENCE D.ART", variant: "title" },
