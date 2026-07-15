@@ -3,7 +3,14 @@ import { captions } from "./captions";
 import { dartFontFamily } from "./font";
 
 const INK = "#472023";
-const CHIP_BG = "#B49894";
+
+// Auto-shrink long phrases so they still fit within the frame width.
+const fitFontSize = (text: string, base: number) => {
+  const overflow = Math.max(0, text.length - 9);
+  return Math.max(base - overflow * 4.5, base * 0.45);
+};
+
+const GLOW = "0 0 30px rgba(251,243,234,0.9), 0 0 70px rgba(251,243,234,0.5), 0 6px 18px rgba(42,17,20,0.35)";
 
 const SmallLine: React.FC<{ text: string; delay: number }> = ({ text, delay }) => {
   const frame = useCurrentFrame();
@@ -24,11 +31,12 @@ const SmallLine: React.FC<{ text: string; delay: number }> = ({ text, delay }) =
         opacity,
         transform: `translateY(${translateY}px)`,
         fontFamily: dartFontFamily,
-        fontWeight: 600,
-        fontSize: 40,
-        color: "#FBF3EA",
-        textShadow: "0 3px 14px rgba(0,0,0,0.55)",
+        fontWeight: 700,
+        fontSize: fitFontSize(text, 62),
+        color: INK,
+        textShadow: GLOW,
         letterSpacing: 0.3,
+        textAlign: "center",
       }}
     >
       {text}
@@ -55,26 +63,18 @@ const HighlightLine: React.FC<{ text: string; delay: number; fontSize: number }>
       style={{
         opacity,
         transform: `scale(${scale})`,
-        transformOrigin: "left center",
-        display: "inline-block",
-        backgroundColor: CHIP_BG,
-        borderRadius: 14,
-        padding: "10px 26px",
-        boxShadow: "0 14px 30px rgba(42,17,20,0.35)",
+        transformOrigin: "center",
+        fontFamily: dartFontFamily,
+        fontWeight: 800,
+        fontSize: fitFontSize(text, fontSize),
+        lineHeight: 1.05,
+        color: INK,
+        textShadow: GLOW,
+        whiteSpace: "pre-line",
+        textAlign: "center",
       }}
     >
-      <span
-        style={{
-          fontFamily: dartFontFamily,
-          fontWeight: 800,
-          fontSize,
-          lineHeight: 1.05,
-          color: INK,
-          whiteSpace: "pre-line",
-        }}
-      >
-        {text}
-      </span>
+      {text}
     </div>
   );
 };
@@ -87,18 +87,17 @@ const CaptionCard: React.FC<{ lead?: string; highlight: string; trail?: string; 
 }) => {
   const isTitle = variant === "title";
   const isCta = variant === "cta";
-  const centered = isTitle || isCta;
-  const highlightSize = isTitle ? 68 : isCta ? 76 : 88;
+  const highlightSize = isTitle ? 96 : isCta ? 130 : 150;
 
   return (
     <AbsoluteFill
       style={{
         justifyContent: "center",
-        alignItems: centered ? "center" : "flex-start",
-        padding: centered ? "0 80px" : "0 0 0 72px",
+        alignItems: "center",
+        padding: "0 64px",
       }}
     >
-      <div style={{ display: "flex", flexDirection: "column", gap: 14, alignItems: centered ? "center" : "flex-start" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 18, alignItems: "center" }}>
         {lead ? <SmallLine text={lead} delay={0} /> : null}
         <HighlightLine text={highlight} delay={lead ? 6 : 0} fontSize={highlightSize} />
         {trail ? <SmallLine text={trail} delay={lead ? 14 : 8} /> : null}
